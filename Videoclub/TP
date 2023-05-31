@@ -1,0 +1,133 @@
+"""
+Programación 2 2023
+Tecnicatura en desarrollo de software
+Instituto técnico superior córdoba - Anexo villa el libertador
+Prof: Matías Bordone
+Estudiante:
+
+Unidad 2 - Práctico 1: #Instroduccion a las estructuras de datos
+
+Lean  el capitulo 7.4.1, reproduzca (es decir copie y ejecute en un archivo de python) la clase videoclub del libro "Libro Introducción a la programación con Python 3"
+Método de trabajo: La idea es que lo vayan haciendo a medida que van leyendo el capitulo, prestando atención a la forma de implementación y observaciones.
+Deberán entregar un arhivo de python con la clase socio, pelicula y videoclub implementados, msotrando ejemplos de uso de la clase.
+
+El videoclub tiene un listado de socios y un listado de películas.
+
+Cada socio tiene una serie de datos:
+- dni,
+- nombre,
+- teléfono,
+- domicilio.
+
+De cada película nos interesa:
+- título,
+- género (acción, comedia, musical, etc.)
+
+Supondremos que en nuestro videoclub básico solo hay un ejemplar de cada película.
+"""
+class Socio():
+    def __init__(self,dni,nombre,telefono,domicilio):
+        self.dni = dni
+        self.nombre = nombre
+        self.telefono = telefono
+        self.domicilio = domicilio
+    
+    def __str__(self):
+        return "DNI: {0}\nNombre: {1}\nTelefono: {2}\nDomicilio: {3}\n" \
+               .format(self.dni, self.nombre, self.telefono, self.domicilio)
+    
+class Pelicula():
+    def __init__(self, titulo, genero):
+        self.titulo = titulo
+        self.genero = genero
+        self.alquilada = None
+    def __str__(self):
+        cadena = 'Titulo: {0}\nGenero: {1}\n'.format(self.titulo, self.genero)
+        if self.alquilada == None:
+            cadena = cadena + 'Disponible\n'
+        else:
+            cadena = cadena + 'Alquilada a: {0}\n'.format(self.alquilada)
+        return cadena 
+    
+class Videoclub():
+    def __init__(self):
+        self.socios = []
+        self.peliculas = []
+    
+    def contiene_socio(self, dni):
+        for socio in self.socios:
+            if socio.dni == dni:
+                return True
+        return False
+    
+    def alta_socio(self, socio):
+        self.socios.append(socio)
+        
+    def baja_socio(self, dni):
+        for i in range(len(self.socios)):
+            if self.socios[i].dni == dni:
+                del self.socios[i]
+                break
+    
+def nuevo_socio():
+    dni = input('DNI: ')
+    nombre = input('Nombre: ')
+    telefono = input('Telefono: ')
+    domicilio = input('Domicilio: ')
+    return Socio(dni, nombre, telefono, domicilio)
+def menu():
+    print("*** VIDEOCLUB ***")
+    print('1) Dar de alta nuevo socio')
+    print('2) Dar de baja un socio')
+    print('3) Dar de alta nueva pelicula')
+    print('4) Dar de baja una pelicula')
+    print('5) Alquiler de pelicula')
+    opcion = int(input('Escoge una opcion: '))
+    while opcion < 1 or opcion > 5:
+        opcion = int(input('Escoge opcion(entre 1 y 5): '))
+    return opcion
+
+videoclub = Videoclub()
+
+opcion = menu()
+while opcion != 6:
+    if opcion == 1:
+        print('Alta de socio')
+        socio = nuevo_socio()
+        if videoclub.contiene_socio(socio.dni):
+            print('Ya existia un socio con DNI', dni)
+        else:
+            videoclub.alta_socio(socio)
+    elif opcion == 2:
+        print('Baja de socio')
+        dni = input('DNI: ')
+        if videoclub.contiene_socio(dni):
+            videoclub.baja_socio(dni)
+            print('Socio con DNI', dni, 'dado de baja')
+        else:
+             print('No existe ningun socio con DNI', dni)
+    elif opcion == 3:
+        print('Alta de pelicula')
+        pelicula = nueva_pelicula()
+        if videoclub.contiene_pelicula(pelicula.titulo):
+            print('Ya hay una pelicula con titulo', pelicula.titulo)
+        else:
+            videoclub.alta_pelicula(pelicula)
+    elif opcion == 4:
+        print('Baja de pelicula')
+        titulo = input('Titulo: ')
+        if videoclub.contiene_pelicula(titulo):
+            videoclub.baja_pelicula(titulo)
+        else:
+            print('No existe ninguna pelicula llamada', titulo)
+    elif opcion == 5:
+        print('Alquiler de pelicula')
+        titulo = input('Titulo de la pelicula: ')
+        dni = input('DNI del socio: ')
+        
+        
+        
+        
+opcion = menu()
+
+    
