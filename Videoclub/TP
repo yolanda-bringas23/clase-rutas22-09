@@ -17,7 +17,7 @@ Cada socio tiene una serie de datos:
 - dni,
 - nombre,
 - teléfono,
-- domicilio.
+- domicilio. mk
 
 De cada película nos interesa:
 - título,
